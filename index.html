@@ -3,26 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mazal Tov!</title>
+    <title>Happy Birthday Shlomi!</title>
     <style>
         body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #ffd5c2 0%, #fff6e9 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .scene {
+            position: relative;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f8f0ff; /* Light pastel purple */
-            font-family: 'Arial', sans-serif;
+            z-index: 1;
         }
-        h1 {
-            font-size: 5rem;
+
+        .sun {
+            position: absolute;
+            top: 50px;
+            right: 100px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #ffb347 0%, #ffcc33 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 50px #ffb347;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        .tree {
+            position: absolute;
+            bottom: 0;
+            left: 50px;
+            width: 200px;
+            height: 300px;
+            animation: sway 5s ease-in-out infinite;
+        }
+
+        .trunk {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 120px;
+            background: #8B4513;
+            border-radius: 10px;
+        }
+
+        .leaves {
+            position: absolute;
+            bottom: 100px;
+            left: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle at center, #e9967a 0%, #deb887 100%);
+            border-radius: 50% 50% 50% 50%;
+            animation: colorChange 10s ease-in-out infinite;
+        }
+
+        .message-container {
             text-align: center;
-            color: #ffadad; /* Pastel pink */
-            text-shadow: 2px 2px #ffd6a5; /* Pastel orange shadow */
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(139, 69, 19, 0.2);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: #8B4513;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: #CD853F;
+            margin-top: 0.5rem;
+        }
+
+        .falling-leaf {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #deb887;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            animation: falling 10s linear infinite;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 50px #ffb347; }
+            to { box-shadow: 0 0 70px #ffcc33; }
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        @keyframes colorChange {
+            0%, 100% { background: radial-gradient(circle at center, #e9967a 0%, #deb887 100%); }
+            50% { background: radial-gradient(circle at center, #deb887 0%, #e9967a 100%); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes falling {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .heart {
+            color: #FF69B4;
+            font-size: 2rem;
+            animation: beat 1s ease infinite;
+        }
+
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
     </style>
 </head>
 <body>
-    <h1>Mazal Tov Shlomi!</h1>
+    <div class="scene">
+        <div class="sun"></div>
+        <div class="tree">
+            <div class="trunk"></div>
+            <div class="leaves"></div>
+        </div>
+        <div class="message-container">
+            <h1>לשלומי היקר</h1>
+            <h2>מלא מזל טוב</h2>
+            <h2>יום הולדת שמח</h2>
+            <span class="heart">♥</span>
+        </div>
+    </div>
+
+    <script>
+        // Create falling leaves
+        function createLeaves() {
+            const colors = ['#deb887', '#d2691e', '#cd853f', '#e9967a'];
+            for (let i = 0; i < 30; i++) {
+                const leaf = document.createElement('div');
+                leaf.className = 'falling-leaf';
+                leaf.style.left = Math.random() * 100 + 'vw';
+                leaf.style.animationDelay = Math.random() * 5 + 's';
+                leaf.style.background = colors[Math.floor(Math.random() * colors.length)];
+                document.body.appendChild(leaf);
+            }
+        }
+
+        createLeaves();
+    </script>
 </body>
 </html>
